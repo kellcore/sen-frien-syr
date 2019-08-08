@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
 import PropTypes from 'prop-types';
 import CityIcon from '../images/enterprise.png';
 import axios from 'axios';
 // MaterialUI
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+
 
 const styles = {
     formContainer: {
@@ -23,12 +26,20 @@ const styles = {
         margin: '10px auto 10px auto'
     },
     button: {
-        marginTop: '20px'
+        marginTop: '20px',
+        position: 'relative'
     },
     customError: {
         color: 'red',
         fontSize: '0.8rem',
         marginTop: '10px'
+    },
+    smallText: {
+        marginTop: '20px'
+    },
+    progress: {
+        position: 'absolute'
+        // this will put the spinner in the center of the button
     }
 };
 
@@ -101,7 +112,17 @@ class login extends Component {
                             </Typography>
                         )}
                         {/* putting text inside curly braces like this is called a conditional */}
-                        <Button type="submit" variant="contained" color="primary" className={classes.button}> submit </Button>
+                        <Button type="submit" variant="contained" color="primary" className={classes.button} disabled={loading}>
+                            {/* disabled is a boolean -> we pass it loading so you can't click on the button while it's loading  */}
+                            login
+                        {loading && (
+                                <CircularProgress size={30} className={classes.progress} />
+                            )}
+                        </Button>
+                        <br />
+                        <Typography variant="body2" className={classes.smallText} color="primary">
+                            don't have an account? sign up <Link to="/signup"> here </Link>
+                        </Typography>
                     </form>
                 </Grid>
                 <Grid item sm />
