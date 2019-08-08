@@ -17,7 +17,8 @@ const styles = {
     card: {
         display: 'flex',
         marginBottom: 20,
-        maxWidth: 400
+        maxWidth: 400,
+        textAlign: 'center'
     },
     media: {
         minWidth: 200,
