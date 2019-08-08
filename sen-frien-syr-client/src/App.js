@@ -12,7 +12,7 @@ import about from './pages/about';
 import contact from './pages/contact';
 import credits from './pages/credits';
 // components
-import Navbar from './components/navbar';
+import Navbar from './components/Navbar';
 
 const theme = createMuiTheme({
   palette: {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Grid } from '@material-ui/core';
-import Thought from '../components/thought';
+import NewThought from '../components/NewThought';
 
 class home extends Component {
     state = {
@@ -10,7 +10,6 @@ class home extends Component {
     componentDidMount() {
         axios.get('/thoughts')
             .then(res => {
-                console.log(res.data);
                 this.setState({ thoughts: res.data })
                 // axios stores data in a key called data
             })
@@ -18,7 +17,7 @@ class home extends Component {
     }
     render() {
         let recentThoughtsMarkup = this.state.thoughts ? (
-            this.state.thoughts.map(thought => <Thought key={thought.id} thought={thought} />)
+            this.state.thoughts.map(thought => <NewThought thought={thought} key={thought.thoughtId} />)
             // creating a component designed specifically to display thoughts -> component name Thought passing in property thought which contains the thought itself
         ) : <p> Fetching thoughts... </p>
         // if thoughts exists (not null), then we have the data and we'll show it on the screen, otherwise 
