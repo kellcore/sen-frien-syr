@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import 'typeface-roboto';
+import jwtDecode from 'jwt-decode';
+// jwt -> json web token
 // pages
 import home from './pages/home';
 import login from './pages/login';
@@ -31,6 +33,23 @@ const theme = createMuiTheme({
   }
 });
 
+let authenticatedUser;
+
+const token = localStorage.fBAuthToken;
+
+if (token) {
+  const decodedToken = jwtDecode(token);
+  if (decodedToken.exp * 1000 < Date.now()) {
+    window.location.href = '/login'
+    authenticatedUser = false;
+  } else {
+    authenticatedUser = true;
+  };
+  // decodedToken has a property of exp which is the time in seconds when the token will expire
+  // if there is a token, decode the token using jwtDecode and store the result in the decodedToken variable -> if the exp property * 1000 of decodedToken is less than the current time, the token has expired -> redirect user to login page -> user is no longer authenticated so boolean is false
+  // else time has not expired on the token so user is authenticated and boolean is true
+}
+
 function App() {
   return (
     <MuiThemeProvider theme={theme}>
@@ -40,8 +59,8 @@ function App() {
           <div className='container'>
             <Switch>
               <Route exact path="/" component={home} />
-              <Route exact path="/login" component={login} />
-              <Route exact path="/signup" component={signup} />
+              <AuthRoute exact path="/login" component={login} />
+              <AuthRoute exact path="/signup" component={signup} />
               <Route exact path="/about" component={about} />
               <Route exact path="/contact" component={contact} />
               <Route exact path="/credits" component={credits} />

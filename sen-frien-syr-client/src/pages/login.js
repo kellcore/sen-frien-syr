@@ -66,6 +66,7 @@ class login extends Component {
         axios.post('/login', userData)
             .then(res => {
                 console.log(res.data);
+                localStorage.setItem('fBAuthToken', `Bearer ${res.data.token}`);
                 this.setState({
                     loading: false
                     // if we get this far, we've been successful in logging in, so loading spinner can go back to default false
@@ -136,3 +137,32 @@ login.propTypes = {
 };
 
 export default (withStyles(styles)(login));
+
+// formContainer: {
+//     textAlign: 'center'
+// },
+// image: {
+//     margin: '20px auto 20px auto'
+// },
+// pageTitle: {
+//     margin: '20px auto 20px auto'
+// },
+// textField: {
+//     margin: '10px auto 10px auto'
+// },
+// button: {
+//     marginTop: '20px',
+//     position: 'relative'
+// },
+// customError: {
+//     color: 'red',
+//     fontSize: '0.8rem',
+//     marginTop: '10px'
+// },
+// smallText: {
+//     marginTop: '20px'
+// },
+// progress: {
+//     position: 'absolute'
+//     // this will put the spinner in the center of the button
+// }
