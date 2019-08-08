@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 // materialUI
 import withStyles from '@material-ui/core/styles/withStyles';
 import Card from '@material-ui/core/Card';
@@ -30,6 +32,7 @@ const styles = {
 
 class NewThought extends Component {
     render() {
+        dayjs.extend(relativeTime);
         const { classes, thought: { body, createdAt, userImage, userHandle, thoughtId, likeCount, commentCount } } = this.props;
         // ^ same as const classes = this.props.classes
         // thought here is being referenced on the home page -> also has properties
@@ -45,7 +48,7 @@ class NewThought extends Component {
                     />
                     <CardContent className={classes.content}>
                         <Typography variant="h5" component={Link} to={`/users/${userHandle}`} color="primary">{userHandle}</Typography>
-                        <Typography variant="body2" color="textSecondary">{createdAt}</Typography>
+                        <Typography variant="body2" color="textSecondary">{dayjs(createdAt).fromNow()}</Typography>
                         <Typography variant="body1">{body}</Typography>
                     </CardContent>
                 </CardActionArea>
