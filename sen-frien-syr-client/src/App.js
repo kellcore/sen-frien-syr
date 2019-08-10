@@ -6,6 +6,12 @@ import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import 'typeface-roboto';
 import jwtDecode from 'jwt-decode';
 // jwt -> json web token
+
+// redux
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
+
 // pages
 import home from './pages/home';
 import login from './pages/login';
@@ -13,6 +19,7 @@ import signup from './pages/signup';
 import about from './pages/about';
 import contact from './pages/contact';
 import credits from './pages/credits';
+
 // components
 import Navbar from './components/Navbar';
 import AuthRoute from './components/AuthRoute';
@@ -54,7 +61,8 @@ if (token) {
 function App() {
   return (
     <MuiThemeProvider theme={theme}>
-      <div className="App">
+      <Provider store={store}>
+        {/* everything inside the provider will have access to the store which is our state using Redux */}
         <Router>
           <Navbar />
           <div className='container'>
@@ -62,13 +70,14 @@ function App() {
               <Route exact path="/" component={home} />
               <AuthRoute exact path="/login" component={login} authenticatedUser={authenticatedUser} />
               <AuthRoute exact path="/signup" component={signup} authenticatedUser={authenticatedUser} />
+              {/*  */}
               <Route exact path="/about" component={about} />
               <Route exact path="/contact" component={contact} />
               <Route exact path="/credits" component={credits} />
             </Switch>
           </div>
         </Router>
-      </div>
+      </Provider>
     </MuiThemeProvider>
   );
 };

@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import withStyles from '@material-ui/core/styles/withStyles';
 import PropTypes from 'prop-types';
 import CityIcon from '../images/enterprise.png';
-import axios from 'axios';
-// MaterialUI
+
+// redux
+import { connect } from 'react-redux';
+import { loginUser } from '../redux/actions/userActions';
+
+// materialui
+import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
@@ -49,37 +53,38 @@ class login extends Component {
         this.state = {
             email: '',
             password: '',
-            loading: false,
+            // loading: false,
             // when you press the login button, this will show a spinner while it waits for data to come back from the server
             errors: {}
         }
     }
     handleSubmit = (event) => {
         event.preventDefault();
-        this.setState({
-            loading: true
-        });
+        // this.setState({
+        //     loading: true
+        // });
         const userData = {
             email: this.state.email,
             password: this.state.password
         }
-        axios.post('/login', userData)
-            .then(res => {
-                console.log(res.data);
-                localStorage.setItem('fBAuthToken', `Bearer ${res.data.token}`);
-                this.setState({
-                    loading: false
-                    // if we get this far, we've been successful in logging in, so loading spinner can go back to default false
-                });
-                this.props.history.push('/');
-                // can use .push() method in react to push state -> this is how we're telling it to redirect us to the home page after we log in!
-            })
-            .catch(err => {
-                this.setState({
-                    errors: err.response.data,
-                    loading: false
-                });
-            });
+        this.props.loginUser(userData, this.props.history);
+        // axios.post('/login', userData)
+        //     .then(res => {
+        //         console.log(res.data);
+        //         localStorage.setItem('fBAuthToken', `Bearer ${res.data.token}`);
+        //         this.setState({
+        //             loading: false
+        //             // if we get this far, we've been successful in logging in, so loading spinner can go back to default false
+        //         });
+        //         this.props.history.push('/');
+        //         // can use .push() method in react to push state -> this is how we're telling it to redirect us to the home page after we log in!
+        //     })
+        //     .catch(err => {
+        //         this.setState({
+        //             errors: err.response.data,
+        //             loading: false
+        //         });
+        //     });
     };
     handleChange = (event) => {
         this.setState({
@@ -87,8 +92,9 @@ class login extends Component {
         })
     };
     render() {
-        const { classes } = this.props;
-        const { errors, loading } = this.state;
+        const { classes, ui: { loading } } = this.props;
+        // loading is now inside the ui in our global state so we have to destructure it like this
+        const { errors } = this.state;
         return (
             <Grid container className={classes.formContainer}>
                 <Grid item sm />
@@ -133,10 +139,24 @@ class login extends Component {
 };
 
 login.propTypes = {
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    loginUser: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired,
+    ui: PropTypes.object.isRequired
 };
 
-export default (withStyles(styles)(login));
+const mapStateToProps = (state) => ({
+    user: state.user,
+    ui: state.ui
+});
+// a function that lets us take what we need from our global state
+
+const mapActionsToProps = {
+    loginUser
+};
+// tells connect which actions we're going to use
+
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(login));
 
 // formContainer: {
 //     textAlign: 'center'
