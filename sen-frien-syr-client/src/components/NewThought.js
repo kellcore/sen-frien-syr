@@ -22,7 +22,7 @@ const styles = {
     },
     media: {
         minWidth: 200,
-        height: 250
+        height: 200
         //         width: 250
     },
     content: {

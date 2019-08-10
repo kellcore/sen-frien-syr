@@ -15,6 +15,7 @@ import contact from './pages/contact';
 import credits from './pages/credits';
 // components
 import Navbar from './components/Navbar';
+import AuthRoute from './components/AuthRoute';
 
 const theme = createMuiTheme({
   palette: {
@@ -59,8 +60,8 @@ function App() {
           <div className='container'>
             <Switch>
               <Route exact path="/" component={home} />
-              <AuthRoute exact path="/login" component={login} />
-              <AuthRoute exact path="/signup" component={signup} />
+              <AuthRoute exact path="/login" component={login} authenticatedUser={authenticatedUser} />
+              <AuthRoute exact path="/signup" component={signup} authenticatedUser={authenticatedUser} />
               <Route exact path="/about" component={about} />
               <Route exact path="/contact" component={contact} />
               <Route exact path="/credits" component={credits} />
