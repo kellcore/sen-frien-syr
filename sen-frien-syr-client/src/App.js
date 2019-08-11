@@ -10,6 +10,8 @@ import jwtDecode from 'jwt-decode';
 // redux
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import { SET_AUTHENTICATED } from './redux/types';
+import { logoutUser, getUserData } from './redux/actions/userActions';
 
 
 // pages
@@ -45,17 +47,21 @@ const theme = createMuiTheme({
 
 // axios.defaults.baseURL = 'https://us-central1-sensoryfriendlysyracuse.cloudfunctions.net/api';
 
-let authenticatedUser;
 
 const token = localStorage.fBAuthToken;
 
 if (token) {
   const decodedToken = jwtDecode(token);
   if (decodedToken.exp * 1000 < Date.now()) {
+    store.dispatch(logoutUser())
+    // calling logoutUser from redux user actions
     window.location.href = '/login'
-    authenticatedUser = false;
   } else {
-    authenticatedUser = true;
+    store.dispatch({ type: SET_AUTHENTICATED });
+    // sets authenticated to true
+    axios.defaults.headers.common['Authorization'] = token;
+    // axios will query again each time page is refreshed so we have to set this here so token persists
+    store.dispatch(getUserData());
   };
   //   decodedToken has a property of exp which is the time in seconds when the token will expire
   //   if there is a token, decode the token using jwtDecode and store the result in the decodedToken variable -> if the exp property * 1000 of decodedToken is less than the current time, the token has expired -> redirect user to login page -> user is no longer authenticated so boolean is false
@@ -72,9 +78,8 @@ function App() {
           <div className='container'>
             <Switch>
               <Route exact path="/" component={home} />
-              <AuthRoute exact path="/login" component={login} authenticatedUser={authenticatedUser} />
-              <AuthRoute exact path="/signup" component={signup} authenticatedUser={authenticatedUser} />
-              {/*  authenticatedUser={authenticatedUser}  */}
+              <AuthRoute exact path="/login" component={login} />
+              <AuthRoute exact path="/signup" component={signup} />
               <Route exact path="/about" component={about} />
               <Route exact path="/contact" component={contact} />
               <Route exact path="/credits" component={credits} />

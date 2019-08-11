@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
 import PropTypes from 'prop-types';
 import CityIcon from '../images/enterprise.png';
-import axios from 'axios';
+
 // materialui
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
