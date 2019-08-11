@@ -24,6 +24,8 @@ import credits from './pages/credits';
 import Navbar from './components/Navbar';
 import AuthRoute from './components/AuthRoute';
 
+import axios from 'axios';
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -41,6 +43,8 @@ const theme = createMuiTheme({
   }
 });
 
+// axios.defaults.baseURL = 'https://us-central1-sensoryfriendlysyracuse.cloudfunctions.net/api';
+
 let authenticatedUser;
 
 const token = localStorage.fBAuthToken;
@@ -53,8 +57,8 @@ if (token) {
   } else {
     authenticatedUser = true;
   };
-  // decodedToken has a property of exp which is the time in seconds when the token will expire
-  // if there is a token, decode the token using jwtDecode and store the result in the decodedToken variable -> if the exp property * 1000 of decodedToken is less than the current time, the token has expired -> redirect user to login page -> user is no longer authenticated so boolean is false
+  //   decodedToken has a property of exp which is the time in seconds when the token will expire
+  //   if there is a token, decode the token using jwtDecode and store the result in the decodedToken variable -> if the exp property * 1000 of decodedToken is less than the current time, the token has expired -> redirect user to login page -> user is no longer authenticated so boolean is false
   // else time has not expired on the token so user is authenticated and boolean is true
 }
 
@@ -70,7 +74,7 @@ function App() {
               <Route exact path="/" component={home} />
               <AuthRoute exact path="/login" component={login} authenticatedUser={authenticatedUser} />
               <AuthRoute exact path="/signup" component={signup} authenticatedUser={authenticatedUser} />
-              {/*  */}
+              {/*  authenticatedUser={authenticatedUser}  */}
               <Route exact path="/about" component={about} />
               <Route exact path="/contact" component={contact} />
               <Route exact path="/credits" component={credits} />

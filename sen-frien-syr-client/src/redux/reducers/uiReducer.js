@@ -15,7 +15,14 @@ export default function (state = initialState, action) {
             };
         case CLEAR_ERRORS:
             return {
-                ...state
+                ...state,
+                loading: false,
+                errors: null
+            };
+        case LOADING_UI:
+            return {
+                ...state,
+                loading: true
             }
         default:
             return state;

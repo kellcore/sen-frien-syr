@@ -56,8 +56,15 @@ class login extends Component {
             // loading: false,
             // when you press the login button, this will show a spinner while it waits for data to come back from the server
             errors: {}
+        };
+    };
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.ui.errors) {
+            this.setState({ errors: nextProps.ui.errors });
+            // if we actually get errors, then we set errors to that object
         }
-    }
+    };
+    // the component won't receive props right away -> solves error of errors not showing up on login screen
     handleSubmit = (event) => {
         event.preventDefault();
         // this.setState({
