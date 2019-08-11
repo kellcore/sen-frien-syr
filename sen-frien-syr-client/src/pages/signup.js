@@ -4,13 +4,15 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import PropTypes from 'prop-types';
 import CityIcon from '../images/enterprise.png';
 import axios from 'axios';
-// MaterialUI
+// materialui
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-
+// redux
+import { connect } from 'react-redux';
+import { signupUser } from '../redux/actions/userActions';
 
 const styles = {
     formContainer: {
@@ -51,11 +53,15 @@ class signup extends Component {
             password: '',
             confirmPassword: '',
             selectHandle: '',
-            loading: false,
-            // when you press the login button, this will show a spinner while it waits for data to come back from the server
             errors: {}
         }
-    }
+    };
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.ui.errors) {
+            this.setState({ errors: nextProps.ui.errors });
+            // if we actually get errors, then we set errors to that object
+        }
+    };
     handleSubmit = (event) => {
         event.preventDefault();
         this.setState({
@@ -66,24 +72,25 @@ class signup extends Component {
             password: this.state.password,
             confirmPassword: this.state.confirmPassword,
             selectHandle: this.state.selectHandle
-        }
-        axios.post('/signup', newUserData)
-            .then(res => {
-                console.log(res.data);
-                localStorage.setItem('fBAuthToken', `Bearer ${res.data.token}`);
-                this.setState({
-                    loading: false
-                    // if we get this far, we've been successful in logging in, so loading spinner can go back to default false
-                });
-                this.props.history.push('/');
-                // can use .push() method in react to push state -> this is how we're telling it to redirect us to the home page after we log in!
-            })
-            .catch(err => {
-                this.setState({
-                    errors: err.response.data,
-                    loading: false
-                });
-            });
+        };
+        this.props.signupUser(newUserData, this.props.history);
+        // axios.post('/signup', newUserData)
+        //     .then(res => {
+        //         console.log(res.data);
+        //         localStorage.setItem('fBAuthToken', `Bearer ${res.data.token}`);
+        //         this.setState({
+        //             loading: false
+        //             // if we get this far, we've been successful in logging in, so loading spinner can go back to default false
+        //         });
+        //         this.props.history.push('/');
+        //         // can use .push() method in react to push state -> this is how we're telling it to redirect us to the home page after we log in!
+        //     })
+        //     .catch(err => {
+        //         this.setState({
+        //             errors: err.response.data,
+        //             loading: false
+        //         });
+        //     });
     };
     handleChange = (event) => {
         this.setState({
@@ -91,8 +98,8 @@ class signup extends Component {
         })
     };
     render() {
-        const { classes } = this.props;
-        const { errors, loading } = this.state;
+        const { classes, ui: { loading } } = this.props;
+        const { errors } = this.state;
         return (
             <Grid container className={classes.formContainer}>
                 <Grid item sm />
@@ -169,7 +176,15 @@ class signup extends Component {
 };
 
 signup.propTypes = {
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
+    ui: PropTypes.object.isRequired,
+    signupUser: PropTypes.func.isRequired
 };
 
-export default (withStyles(styles)(signup));
+const mapStateToProps = (state) => ({
+    user: state.user,
+    ui: state.ui
+});
+
+export default connect(mapStateToProps, { signupUser })(withStyles(styles)(signup));
