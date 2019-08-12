@@ -4,16 +4,20 @@ import { Link } from 'react-router-dom';
 import dayJS from 'dayjs';
 //redux
 import { connect } from 'react-redux';
+import { logoutUser, uploadImage } from '../redux/actions/userActions';
 // materialui
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import MuiLink from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
+import { IconButton } from '@material-ui/core';
+import Tooltip from '@material-ui/core/Tooltip';
 // icons
 import LocationOn from '@material-ui/icons/LocationOn';
 import LinkIcon from '@material-ui/icons/Link';
 import CalendarToday from '@material-ui/icons/CalendarToday';
+import EditIcon from '@material-ui/icons/Edit';
 
 const styles = (theme) => ({
     paper: {
@@ -64,6 +68,19 @@ const styles = (theme) => ({
 });
 
 class Profile extends Component {
+    imageChange = (event) => {
+        const image = event.target.files[0];
+        // this will select the first file in the array
+        const formData = new FormData();
+        // pascal cased because this is a class
+        formData.append('image', image, image.name);
+        // append takes a title in the form of a string, the file we saved to a variable earlier, and a blob
+        this.props.uploadImage(formData);
+    };
+    editPicture = () => {
+        const fileInput = document.getElementById('imageUpload');
+        fileInput.click();
+    };
     render() {
         const { classes, user: { credentials: { selectHandle, createdAt, imageUrl, bio, website, location }, loading, authenticated } } = this.props;
         // this is nested destructuring!
@@ -74,6 +91,17 @@ class Profile extends Component {
                 <div className={classes.profile}>
                     <div className="image-wrapper">
                         <img src={imageUrl} alt="user" className="profile-image" />
+                        <input
+                            type="file" id="imageUpload"
+                            onChange={this.imageChange}
+                            hidden="hidden"
+                        />
+                        {/* the onchange is trigged each time you select a file */}
+                        <Tooltip title="edit profile pic" placement="top">
+                            <IconButton onClick={this.editPicture} className="buttons">
+                                <EditIcon color="primary" />
+                            </IconButton>
+                        </Tooltip>
                     </div>
                     <hr />
                     {/* hr = horizontal ruler -> using this to create some space between profile pic and rest of profile info*/}
@@ -133,9 +161,13 @@ const mapStateToProps = (state) => ({
     user: state.user
 });
 
+const mapActionsToProps = { logoutUser, uploadImage };
+
 Profile.propTypes = {
+    logoutUser: PropTypes.func.isRequired,
+    uploadImage: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(Profile))
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(Profile))
