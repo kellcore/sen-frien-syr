@@ -17,13 +17,14 @@ const styles = {
     card: {
         display: 'flex',
         marginBottom: 20,
-        maxWidth: 400,
-        textAlign: 'center'
+        // maxWidth: 400,
+        // textAlign: 'center'
+
     },
     media: {
-        minWidth: 200,
-        height: 200
-        //         width: 250
+        // minWidth: 200,
+        height: 150,
+        width: 150
     },
     content: {
         padding: 25,
@@ -40,19 +41,19 @@ class NewThought extends Component {
         // destructuring!!! 
         return (
             <Card className={classes.card}>
-                <CardActionArea>
-                    <CardMedia
-                        image={userImage}
-                        title="profile pic"
-                        className={classes.media}
-                        component="img"
-                    />
-                    <CardContent className={classes.content}>
-                        <Typography variant="h5" component={Link} to={`/users/${userHandle}`} color="primary">{userHandle}</Typography>
-                        <Typography variant="body2" color="textSecondary">{dayjs(createdAt).fromNow()}</Typography>
-                        <Typography variant="body1">{body}</Typography>
-                    </CardContent>
-                </CardActionArea>
+                {/* <CardActionArea> */}
+                <CardMedia
+                    image={userImage}
+                    title="profile pic"
+                    className={classes.media}
+                    component="img"
+                />
+                <CardContent className={classes.content}>
+                    <Typography variant="h5" component={Link} to={`/users/${userHandle}`} color="primary">{userHandle}</Typography>
+                    <Typography variant="body2" color="textSecondary">{dayjs(createdAt).fromNow()}</Typography>
+                    <Typography variant="body1">{body}</Typography>
+                </CardContent>
+                {/* </CardActionArea> */}
             </Card>
         );
     };

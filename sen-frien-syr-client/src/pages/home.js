@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Grid } from '@material-ui/core';
+
 import NewThought from '../components/NewThought';
+import Profile from '../components/Profile';
 
 class home extends Component {
     state = {
@@ -22,11 +24,11 @@ class home extends Component {
         ) : <p> Fetching thoughts... </p>
         // if thoughts exists (not null), then we have the data and we'll show it on the screen, otherwise 
         return (
-            <Grid container spacing={10}>
-                <Grid item xs={12} sm={6}>
-                    <p> profile goes here... </p>
+            <Grid container spacing={8}>
+                <Grid item xs={12} sm={12}>
+                    <Profile />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={12}>
                     {recentThoughtsMarkup}
                 </Grid>
             </Grid>
