@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import dayJS from 'dayjs';
+import EditUserProfile from '../components/EditUserProfile';
 //redux
 import { connect } from 'react-redux';
 import { logoutUser, uploadImage } from '../redux/actions/userActions';
@@ -18,6 +19,8 @@ import LocationOn from '@material-ui/icons/LocationOn';
 import LinkIcon from '@material-ui/icons/Link';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import EditIcon from '@material-ui/icons/Edit';
+import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
+
 
 const styles = (theme) => ({
     paper: {
@@ -81,6 +84,9 @@ class Profile extends Component {
         const fileInput = document.getElementById('imageUpload');
         fileInput.click();
     };
+    handleLogout = () => {
+        this.props.logoutUser();
+    };
     render() {
         const { classes, user: { credentials: { selectHandle, createdAt, imageUrl, bio, website, location }, loading, authenticated } } = this.props;
         // this is nested destructuring!
@@ -138,6 +144,12 @@ class Profile extends Component {
                         {'  '}
                         <span> joined {dayJS(createdAt).format('MMM YYYY')}</span>
                     </div>
+                    <Tooltip title="logout" placement="top">
+                        <IconButton onClick={this.handleLogout}>
+                            <KeyboardReturn color="primary" />
+                        </IconButton>
+                    </Tooltip>
+                    <EditUserProfile />
                 </div>
             </Paper>
         ) : (
@@ -151,7 +163,7 @@ class Profile extends Component {
                     </Typography>
                 </Paper>
             )) : (<p> profile loading... </p>)
-        // two ternary operators: if not loading, check if we're authenticated, otherwise show profile loading text -> if we're authenticated, 
+        // two ternary operators: if not loading, check if we're authenticated, otherwise show profile loading text -> if we're authenticated, display profile markup, otherwise, display no profile found with login/signup links
 
         return profileMarkup;
     }
