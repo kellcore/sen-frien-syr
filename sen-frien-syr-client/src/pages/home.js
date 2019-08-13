@@ -1,27 +1,24 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
 
 import NewThought from '../components/NewThought';
 import Profile from '../components/Profile';
 
+import { connect } from 'react-redux';
+import { collectThoughts } from '../redux/actions/dataActions';
+
 class home extends Component {
-    state = {
-        thoughts: null
-    }
     componentDidMount() {
-        axios.get('/thoughts')
-            .then(res => {
-                this.setState({ thoughts: res.data })
-                // axios stores data in a key called data
-            })
-            .catch(err => console.log(err));
-    }
+        this.props.collectThoughts();
+    };
     render() {
-        let recentThoughtsMarkup = this.state.thoughts ? (
-            this.state.thoughts.map(thought => <NewThought thought={thought} key={thought.thoughtId} />)
+        const { thoughts, loading } = this.props.data;
+        let recentThoughtsMarkup = !loading ? (
+            thoughts.map((thought) =>
+                <NewThought thought={thought} key={thought.thoughtId} />)
             // creating a component designed specifically to display thoughts -> component name Thought passing in property thought which contains the thought itself
-        ) : <p> Fetching thoughts... </p>
+        ) : (<p> Fetching thoughts... </p>);
         // if thoughts exists (not null), then we have the data and we'll show it on the screen, otherwise 
         return (
             <Grid container spacing={8}>
@@ -36,4 +33,13 @@ class home extends Component {
     }
 };
 
-export default home
+home.propTypes = {
+    collectThoughts: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+    data: state.data
+});
+
+export default connect(mapStateToProps, { collectThoughts })(home)

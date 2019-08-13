@@ -1,4 +1,4 @@
-import { SET_USER, SET_AUTHENTICATED, SET_UNAUTHENTICATED, LOADING_USER } from '../types';
+import { SET_USER, SET_AUTHENTICATED, SET_UNAUTHENTICATED, LOADING_USER, LIKE_THOUGHT, UNLIKE_THOUGHT } from '../types';
 
 const initialState = {
     authenticated: false,
@@ -30,6 +30,24 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 loading: true
+            };
+        case LIKE_THOUGHT:
+            return {
+                ...state,
+                likes: [
+                    ...state.likes,
+                    {
+                        thoughtId: action.payload.thoughtId,
+                        userHandle: state.credentials.selectHandle
+                    }
+                ]
+            };
+        // this is where we actually add the like to the array!
+        case UNLIKE_THOUGHT:
+            return {
+                ...state,
+                likes: state.likes.filter((like) => like.thoughtId !== action.payload.thoughtId)
+                // we're using filter to remove a like
             };
         default:
             // have to have a default case since it's a switch
