@@ -18,7 +18,7 @@ admin.initializeApp({
 
 
 const fireBaseAuth = require('./utilities/fireBaseAuth');
-//show me what you goooooooooooooot
+
 
 const { collectAllThoughts, createNewThought, collectOneThought, commentOnThought, likeThought, unlikeThought, deleteThought } = require('./handlers/thoughts');
 const { signup, login, uploadImage, addUserInfo, getAuthenticatedUser, getUserThoughts, markNotificationsAsRead } = require('./handlers/users');

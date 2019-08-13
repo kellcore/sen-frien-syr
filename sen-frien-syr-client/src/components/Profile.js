@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import dayJS from 'dayjs';
 import EditUserProfile from '../components/EditUserProfile';
+import ToolButton from './ToolButton';
 //redux
 import { connect } from 'react-redux';
 import { logoutUser, uploadImage } from '../redux/actions/userActions';
@@ -12,13 +13,11 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import MuiLink from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
-import { IconButton } from '@material-ui/core';
-import Tooltip from '@material-ui/core/Tooltip';
 // icons
 import LocationOn from '@material-ui/icons/LocationOn';
 import LinkIcon from '@material-ui/icons/Link';
 import CalendarToday from '@material-ui/icons/CalendarToday';
-import EditIcon from '@material-ui/icons/Edit';
+import PhotoIcon from '@material-ui/icons/PhotoCamera';
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
 
 
@@ -103,11 +102,9 @@ class Profile extends Component {
                             hidden="hidden"
                         />
                         {/* the onchange is trigged each time you select a file */}
-                        <Tooltip title="edit profile pic" placement="top">
-                            <IconButton onClick={this.editPicture} className="buttons">
-                                <EditIcon color="primary" />
-                            </IconButton>
-                        </Tooltip>
+                        <ToolButton tip="edit profile pic" onClick={this.editPicture} btnClassName="buttons">
+                            <PhotoIcon color="primary" />
+                        </ToolButton>
                     </div>
                     <hr />
                     {/* hr = horizontal ruler -> using this to create some space between profile pic and rest of profile info*/}
@@ -144,11 +141,9 @@ class Profile extends Component {
                         {'  '}
                         <span> joined {dayJS(createdAt).format('MMM YYYY')}</span>
                     </div>
-                    <Tooltip title="logout" placement="top">
-                        <IconButton onClick={this.handleLogout}>
-                            <KeyboardReturn color="primary" />
-                        </IconButton>
-                    </Tooltip>
+                    <ToolButton tip="logout" onClick={this.handleLogout} btnClassName="buttons">
+                        <KeyboardReturn color="primary" />
+                    </ToolButton>
                     <EditUserProfile />
                 </div>
             </Paper>

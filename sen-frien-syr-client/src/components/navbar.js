@@ -1,9 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
-// MaterialUI
+import PropTypes from 'prop-types';
+import ToolButton from './ToolButton';
+// redux
+import { connect } from 'react-redux';
+// materialui
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
+// icons
+import AddIcon from '@material-ui/icons/Add';
+import HomeIcon from '@material-ui/icons/Home';
+import Notifications from '@material-ui/icons/Notifications';
+import ContactIcon from '@material-ui/icons/ContactSupport';
+import AccountIcon from '@material-ui/icons/AccountCircle';
+import SignupIcon from '@material-ui/icons/HowToReg';
+import AboutIcon from '@material-ui/icons/Description';
+import CreditsIcon from '@material-ui/icons/Copyright';
 
 // makes compile time slower to import all at once -> also need individual components for tree shaking
 
@@ -11,21 +23,88 @@ import Button from '@material-ui/core/Button';
 
 class Navbar extends Component {
     render() {
+        const { authenticated } = this.props;
         return (
             <AppBar>
                 <Toolbar className='nav-container'>
-                    <Button color='inherit' component={Link} to='/'> Home </Button>
-                    <Button color='inherit' component={Link} to='/login'> Login </Button>
-                    <Button color='inherit' component={Link} to='/signup'> Signup </Button>
-                    <Button color='inherit' component={Link} to='/about'> About </Button>
-                    <Button color='inherit' component={Link} to='/contact'> Contact </Button>
-                    <Button color='inherit' component={Link} to='/credits'> Credits </Button>
+                    {authenticated ? (
+                        <Fragment>
+                            <Link to="/">
+                                <ToolButton tip="home">
+                                    <HomeIcon />
+                                </ToolButton>
+                            </Link>
+                            <ToolButton tip="share your thoughts">
+                                <AddIcon />
+                            </ToolButton>
+                            <ToolButton tip="notifications">
+                                <Notifications />
+                            </ToolButton>
+                            <Link to="/about">
+                                <ToolButton tip="about">
+                                    <AboutIcon />
+                                </ToolButton>
+                            </Link>
+                            <Link to="/contact">
+                                <ToolButton tip="contact">
+                                    <ContactIcon />
+                                </ToolButton>
+                            </Link>
+                            <Link to="/credits">
+                                <ToolButton tip="credits">
+                                    <CreditsIcon />
+                                </ToolButton>
+                            </Link>
+                        </Fragment>
+                    ) : (
+                            <Fragment>
+                                <Link to="/">
+                                    <ToolButton tip="home">
+                                        <HomeIcon />
+                                    </ToolButton>
+                                </Link>
+                                <Link to="/login">
+                                    <ToolButton tip="login">
+                                        <AccountIcon />
+                                    </ToolButton>
+                                </Link>
+                                <Link to="/signup">
+                                    <ToolButton tip="signup">
+                                        <SignupIcon />
+                                    </ToolButton>
+                                </Link>
+                                <Link to="/about">
+                                    <ToolButton tip="about">
+                                        <AboutIcon />
+                                    </ToolButton>
+                                </Link>
+                                <Link to="/contact">
+                                    <ToolButton tip="contact">
+                                        <ContactIcon />
+                                    </ToolButton>
+                                </Link>
+                                <Link to="/credits">
+                                    <ToolButton tip="credits">
+                                        <CreditsIcon />
+                                    </ToolButton>
+                                </Link>
+                            </Fragment>
+                        )}
+                    {/* if user is authenticated, display navbar with notification and share icons, otherwise, display navbar with login and signup icons */}
                 </Toolbar>
             </AppBar>
         )
     }
 };
 
-export default Navbar;
+Navbar.propTypes = {
+    authenticated: PropTypes.bool.isRequired
+};
+
+const mapStateToProps = (state) => ({
+    authenticated: state.user.authenticated
+})
+
+export default connect(mapStateToProps)(Navbar);
 
 

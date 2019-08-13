@@ -1,13 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
+import ToolButton from './ToolButton';
 // redux
 import { connect } from 'react-redux';
 import { editUserProfile } from '../redux/actions/userActions';
 // materialui
 import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -114,11 +113,9 @@ class EditUserProfile extends Component {
         const { classes } = this.props;
         return (
             <Fragment>
-                <Tooltip title="edit profile" placement="top">
-                    <IconButton onClick={this.handleOpen} className={classes.button}>
-                        <EditIcon color="primary" />
-                    </IconButton>
-                </Tooltip>
+                <ToolButton tip="edit profile" onClick={this.handleOpen} btnClassName={classes.button}>
+                    <EditIcon color="primary" />
+                </ToolButton>
                 <Dialog open={this.state.open} onClose={this.handleClose} fullWidth maxWidth="sm">
                     <DialogTitle> edit your profile </DialogTitle>
                     <DialogContent>
