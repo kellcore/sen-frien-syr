@@ -1,4 +1,4 @@
-import { GATHER_THOUGHTS, LOADING_DATA, LIKE_THOUGHT, UNLIKE_THOUGHT, DELETE_THOUGHT, CLEAR_ERRORS, SHARE_THOUGHT, LOADING_UI, SET_ERRORS } from '../types';
+import { GATHER_THOUGHTS, LOADING_DATA, LIKE_THOUGHT, UNLIKE_THOUGHT, DELETE_THOUGHT, CLEAR_ERRORS, SHARE_THOUGHT, LOADING_UI, SET_ERRORS, GATHER_THOUGHT, STOP_LOADING_UI } from '../types';
 import axios from 'axios';
 
 // collect all thoughts
@@ -18,6 +18,19 @@ export const collectThoughts = () => dispatch => {
                 // returns an empty object if there's an error instead of the thought data
             })
         });
+};
+
+export const collectThought = (thoughtId) => (dispatch) => {
+    dispatch({ type: LOADING_UI });
+    axios.get(`/thought/${thoughtId}`)
+        .then(res => {
+            dispatch({
+                type: GATHER_THOUGHT,
+                payload: res.data
+            });
+            dispatch({ type: STOP_LOADING_UI })
+        })
+        .catch(err => console.log(err));
 };
 
 // share a thought
