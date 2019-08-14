@@ -53,11 +53,22 @@ class ShareThought extends Component {
         body: '',
         errors: {}
     };
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.ui.errors) {
+            this.setState({
+                errors: nextProps.ui.errors
+            });
+        }
+        if (!nextProps.ui.errors && !nextProps.ui.loading) {
+            this.setState({ body: '' });
+            this.handleClose();
+        }
+    };
     handleOpen = () => {
         this.setState({ open: true })
     };
     handleClose = () => {
-        this.setState({ open: false })
+        this.setState({ open: false, errors: {} })
     };
     handleChange = (event) => {
         this.setState({ [event.target.name]: event.target.value })
@@ -65,7 +76,7 @@ class ShareThought extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         this.props.shareThought({ body: this.state.body });
-        this.handleClose();
+        // this.handleClose();
     };
     render() {
         const { errors } = this.state;
