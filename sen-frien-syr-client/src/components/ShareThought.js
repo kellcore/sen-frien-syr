@@ -4,7 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import ToolButton from './ToolButton';
 // redux
 import { connect } from 'react-redux';
-import { shareThought } from '../redux/actions/dataActions';
+import { shareThought, clearErrors } from '../redux/actions/dataActions';
 // materialui
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -35,15 +35,16 @@ const styles = {
     // },
     submitButton: {
         position: 'relative',
-        marginBottom: '20'
+        float: 'right',
+        marginTop: 20
     },
     progressSpinner: {
         position: 'absolute'
     },
     closeButton: {
         position: 'absolute',
-        left: '90%',
-        top: '10%'
+        left: '91%',
+        top: '4%'
     }
 };
 
@@ -60,15 +61,16 @@ class ShareThought extends Component {
             });
         }
         if (!nextProps.ui.errors && !nextProps.ui.loading) {
-            this.setState({ body: '' });
-            this.handleClose();
-        }
+            this.setState({ body: '', open: false, errors: {} });
+        };
     };
     handleOpen = () => {
         this.setState({ open: true })
     };
     handleClose = () => {
-        this.setState({ open: false, errors: {} })
+        this.props.clearErrors();
+        // this will clear the errors out so they won't be stored in the state when we close the dialog
+        this.setState({ open: false, errors: {} });
     };
     handleChange = (event) => {
         this.setState({ [event.target.name]: event.target.value })
@@ -91,11 +93,11 @@ class ShareThought extends Component {
                     <ToolButton tip="close" onClick={this.handleClose} tipClassName={classes.closeButton}>
                         <CloseIcon color="secondary" />
                     </ToolButton>
-                    <DialogTitle> write and share your thought! </DialogTitle>
+                    <DialogTitle> share your thoughts! </DialogTitle>
                     <DialogContent>
                         <form onSubmit={this.handleSubmit}>
                             <TextField name="body" type="text"
-                                label="thought goes here..." multiline rows="3" placeholder="share your thoughts with everyone!"
+                                label="click here to type:" multiline rows="2" placeholder="what's on your mind?"
                                 error={errors.body ? true : false}
                                 helperText={errors.body} className={classes.textField} onChange={this.handleChange} fullWidth />
                             {/* helperText will display any errors to the user -> if it's undefined, we won't have any text */}
@@ -113,6 +115,7 @@ class ShareThought extends Component {
 
 ShareThought.propTypes = {
     shareThought: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired,
     ui: PropTypes.object.isRequired
 };
 
@@ -120,4 +123,4 @@ const mapStateToProps = (state) => ({
     ui: state.ui
 });
 
-export default connect(mapStateToProps, { shareThought })(withStyles(styles)(ShareThought));
+export default connect(mapStateToProps, { shareThought, clearErrors })(withStyles(styles)(ShareThought));

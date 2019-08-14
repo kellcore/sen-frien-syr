@@ -67,7 +67,7 @@ class NewThought extends Component {
         // destructuring!!!
         const likeButton = !authenticatedUser ? (
             <Link to="/login">
-                <ToolButton tip="like">
+                <ToolButton tip="like" onClick={this.likeThought}>
                     <EmptyHeartIcon color="primary" />
                 </ToolButton>
             </Link>
@@ -76,11 +76,11 @@ class NewThought extends Component {
                 <HeartIcon color="primary" />
             </ToolButton>
         ) : (
-                    <ToolButton tip="like" onClick={this.likeThought}>
+                    <ToolButton tip="like" >
                         <EmptyHeartIcon color="primary" />
                     </ToolButton>
                 );
-        console.log(likeButton);
+        // console.log(likeButton);
 
         // if not authenticated, we show the empty heart icon and redirect to the login page, otherwise we are authenticated and we check if there are any likes -> if the thought has a like in our array, we show the full heart & if we haven't liked it, we show the button with the like tip
         const deleteButton = authenticatedUser && userHandle === selectHandle ? (

@@ -23,7 +23,8 @@ export default function (state = initialState, action) {
             };
         case LIKE_THOUGHT:
         case UNLIKE_THOUGHT:
-            let index = state.thoughts.findIndex((thought) => thought.thoughtId === action.payload.thoughtId);
+            let index = state.thoughts.findIndex(
+                (thought) => thought.thoughtId === action.payload.thoughtId);
             // this is a higher order function
             // first we need to find the specific thought
             // we want to make sure the thoughtId matches the one passed in via payload
@@ -37,7 +38,8 @@ export default function (state = initialState, action) {
                 ...state
             };
         case DELETE_THOUGHT:
-            index = state.thoughts.findIndex((thought) => thought.thoughtId === action.payload);
+            index = state.thoughts.findIndex(
+                (thought) => thought.thoughtId === action.payload);
             state.thoughts.splice(index, 1);
             return {
                 ...state
