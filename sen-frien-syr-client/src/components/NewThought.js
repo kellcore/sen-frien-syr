@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
 import ToolButton from '../components/ToolButton';
+import DeleteThought from '../components/DeleteThought';
 // materialUI
 import withStyles from '@material-ui/core/styles/withStyles';
 import Card from '@material-ui/core/Card';
@@ -20,6 +21,7 @@ import { likeThought, unlikeThought } from '../redux/actions/dataActions';
 
 const styles = {
     card: {
+        position: 'relative',
         display: 'flex',
         marginBottom: 20,
         // maxWidth: 400,
@@ -39,7 +41,7 @@ const styles = {
 
 class NewThought extends Component {
     likedThought = () => {
-        if (this.props.user.likes && this.props.user.likes.find(like => like.thoughtId === this.props.thought.thoughtId))
+        if (this.props.user.likes && this.props.user.likes.find((like) => like.thoughtId === this.props.thought.thoughtId))
             return true;
         else return false;
         // we need to check if there's any likes in our user object, otherwise it's false -> there's no likes if there's no like array
@@ -57,30 +59,34 @@ class NewThought extends Component {
             classes,
             thought: { body, createdAt, userImage, userHandle, thoughtId, likeCount, commentCount },
             user: {
-                authenticated
+                authenticatedUser, credentials: { selectHandle }
             }
         } = this.props;
         // ^ same as const classes = this.props.classes
         // thought here is being referenced on the home page -> also has properties
         // destructuring!!!
-        const likeButton = !authenticated ? (
-            <ToolButton tip="like">
-                <Link to="/login">
+        const likeButton = !authenticatedUser ? (
+            <Link to="/login">
+                <ToolButton tip="like">
                     <EmptyHeartIcon color="primary" />
-                </Link>
+                </ToolButton>
+            </Link>
+        ) : this.likedThought() ? (
+            <ToolButton tip="unlike" onClick={this.unlikeThought}>
+                <HeartIcon color="primary" />
             </ToolButton>
         ) : (
-                this.likedThought() ? (
-                    <ToolButton tip="unlike" onClick={this.unlikeThought}>
-                        <HeartIcon color="primary" />
+                    <ToolButton tip="like" onClick={this.likeThought}>
+                        <EmptyHeartIcon color="primary" />
                     </ToolButton>
-                ) : (
-                        <ToolButton tip="like" onClick={this.likeThought}>
-                            <EmptyHeartIcon color="primary" />
-                        </ToolButton>
-                    )
-            )
+                );
+        console.log(likeButton);
+
         // if not authenticated, we show the empty heart icon and redirect to the login page, otherwise we are authenticated and we check if there are any likes -> if the thought has a like in our array, we show the full heart & if we haven't liked it, we show the button with the like tip
+        const deleteButton = authenticatedUser && userHandle === selectHandle ? (
+            <DeleteThought thoughtId={thoughtId} />
+        ) : null;
+        // console.log(deleteButton);
         return (
             <Card className={classes.card}>
                 <CardMedia
@@ -91,6 +97,7 @@ class NewThought extends Component {
                 />
                 <CardContent className={classes.content}>
                     <Typography variant="h5" component={Link} to={`/users/${userHandle}`} color="primary">{userHandle}</Typography>
+                    {deleteButton}
                     <Typography variant="body2" color="textSecondary">{dayjs(createdAt).fromNow()}</Typography>
                     <Typography variant="body1">{body}</Typography>
                     {likeButton}

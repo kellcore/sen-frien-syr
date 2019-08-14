@@ -1,4 +1,4 @@
-import { GATHER_THOUGHTS, LOADING_DATA, LIKE_THOUGHT, UNLIKE_THOUGHT } from '../types';
+import { GATHER_THOUGHTS, LOADING_DATA, LIKE_THOUGHT, UNLIKE_THOUGHT, DELETE_THOUGHT } from '../types';
 import axios from 'axios';
 
 // collect all thoughts
@@ -44,4 +44,17 @@ export const unlikeThought = (thoughtId) => (dispatch) => {
             });
         })
         .catch((err) => console.log(err));
+};
+
+// delete a thought
+
+export const deleteThought = (thoughtId) => (dispatch) => {
+    axios.delete(`/thought/${thoughtId}`)
+        .then(() => {
+            dispatch({
+                type: DELETE_THOUGHT,
+                payload: thoughtId
+            });
+        })
+        .catch(err => console.log(err));
 };

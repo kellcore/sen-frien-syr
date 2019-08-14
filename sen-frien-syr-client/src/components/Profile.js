@@ -87,11 +87,11 @@ class Profile extends Component {
         this.props.logoutUser();
     };
     render() {
-        const { classes, user: { credentials: { selectHandle, createdAt, imageUrl, bio, website, location }, loading, authenticated } } = this.props;
+        const { classes, user: { credentials: { selectHandle, createdAt, imageUrl, bio, website, location }, loading, authenticatedUser } } = this.props;
         // this is nested destructuring!
         // adding a loading property to the user -> this is different from ui loading
 
-        let profileMarkup = !loading ? (authenticated ? (
+        let profileMarkup = !loading ? (authenticatedUser ? (
             <Paper className={classes.paper}>
                 <div className={classes.profile}>
                     <div className="image-wrapper">
@@ -149,14 +149,16 @@ class Profile extends Component {
             </Paper>
         ) : (
                 <Paper className={classes.paper}>
-                    <Typography variant="body2" align="center">
-                        no profile found
                     <div className={classes.buttons}>
+                        <Typography variant="body2" align="center">
+                            no profile found
+                        </Typography>
+                        <span>
                             <Button variant="contained" color="primary" component={Link} to="/login"> login </Button>
                             <Button variant="contained" color="secondary" component={Link} to="/signup"> signup </Button>
-                        </div>
-                    </Typography>
-                </Paper>
+                        </span>
+                    </div>
+                </Paper >
             )) : (<p> profile loading... </p>)
         // two ternary operators: if not loading, check if we're authenticated, otherwise show profile loading text -> if we're authenticated, display profile markup, otherwise, display no profile found with login/signup links
 

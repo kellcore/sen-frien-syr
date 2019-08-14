@@ -23,11 +23,11 @@ import CreditsIcon from '@material-ui/icons/Copyright';
 
 class Navbar extends Component {
     render() {
-        const { authenticated } = this.props;
+        const { authenticatedUser } = this.props;
         return (
             <AppBar>
                 <Toolbar className='nav-container'>
-                    {authenticated ? (
+                    {authenticatedUser ? (
                         <Fragment>
                             <Link to="/">
                                 <ToolButton tip="home">
@@ -98,11 +98,11 @@ class Navbar extends Component {
 };
 
 Navbar.propTypes = {
-    authenticated: PropTypes.bool.isRequired
+    authenticatedUser: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
-    authenticated: state.user.authenticated
+    authenticatedUser: state.user.authenticatedUser
 })
 
 export default connect(mapStateToProps)(Navbar);

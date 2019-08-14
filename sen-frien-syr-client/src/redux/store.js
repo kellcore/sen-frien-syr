@@ -1,5 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+// this is what lets redux handle async & await
 
 import userReducer from './reducers/userReducer';
 import dataReducer from './reducers/dataReducer';

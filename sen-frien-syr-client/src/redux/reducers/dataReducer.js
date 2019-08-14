@@ -1,4 +1,4 @@
-import { GATHER_THOUGHTS, LIKE_THOUGHT, UNLIKE_THOUGHT, LOADING_DATA } from '../types';
+import { GATHER_THOUGHTS, LIKE_THOUGHT, UNLIKE_THOUGHT, LOADING_DATA, DELETE_THOUGHT } from '../types';
 
 const initialState = {
     thoughts: [],
@@ -36,6 +36,12 @@ export default function (state = initialState, action) {
             return {
                 ...state,
             }
+        case DELETE_THOUGHT:
+            index = state.thoughts.findIndex((thought) => thought.thoughtId === action.payload);
+            state.thoughts.splice(index, 1);
+            return {
+                ...state
+            };
         default:
             return state;
     };

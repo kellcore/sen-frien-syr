@@ -58,7 +58,8 @@ class login extends Component {
             errors: {}
         };
     };
-    componentWillReceiveProps(nextProps) {
+    // componentWillReceiveProps(nextProps) {
+    componentDidUpdate(nextProps) {
         if (nextProps.ui.errors) {
             this.setState({ errors: nextProps.ui.errors });
             // if we actually get errors, then we set errors to that object

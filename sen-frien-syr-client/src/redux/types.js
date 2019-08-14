@@ -12,6 +12,7 @@ export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const GATHER_THOUGHTS = 'GATHER_THOUGHTS';
 export const LIKE_THOUGHT = 'LIKE_THOUGHT';
 export const UNLIKE_THOUGHT = 'UNLIKE_THOUGHT';
+export const DELETE_THOUGHT = 'DELETE_THOUGHT';
 
 
 // we don't have to do this but it makes it easier to spot our mistakes since the app won't run if we use the wrong variables

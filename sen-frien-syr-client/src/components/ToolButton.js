@@ -11,7 +11,7 @@ export default ({ children, onClick, tip, btnClassName, tipClassName }) => (
             {/* children will be the icon rendered inside the button */}
         </IconButton>
     </Tooltip>
-)
+);
 
 // this is a functional component
 // we can just do parentheses because we don't need to process any logic here

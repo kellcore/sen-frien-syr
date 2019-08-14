@@ -16,12 +16,12 @@ const AuthRoute = ({ component: Component, authenticatedUser, ...rest }) => (
 // changed syntax to parenthesis so it will return something right away
 
 const mapStateToProps = (state) => ({
-    authenticatedUser: state.user.authenticated
+    authenticatedUser: state.user.authenticatedUser
 });
 // this is a function that returns an object
 
 AuthRoute.propTypes = {
-    user: PropTypes.object.isRequired
+    user: PropTypes.object
 };
 
 export default connect(mapStateToProps)(AuthRoute);
