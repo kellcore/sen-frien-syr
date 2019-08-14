@@ -1,4 +1,4 @@
-import { GATHER_THOUGHTS, LIKE_THOUGHT, UNLIKE_THOUGHT, LOADING_DATA, DELETE_THOUGHT } from '../types';
+import { GATHER_THOUGHTS, LIKE_THOUGHT, UNLIKE_THOUGHT, LOADING_DATA, DELETE_THOUGHT, SHARE_THOUGHT } from '../types';
 
 const initialState = {
     thoughts: [],
@@ -14,13 +14,13 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 loading: true
-            }
+            };
         case GATHER_THOUGHTS:
             return {
                 ...state,
                 thoughts: action.payload,
                 loading: false
-            }
+            };
         case LIKE_THOUGHT:
         case UNLIKE_THOUGHT:
             let index = state.thoughts.findIndex((thought) => thought.thoughtId === action.payload.thoughtId);
@@ -30,18 +30,28 @@ export default function (state = initialState, action) {
             // we determine we've liked a thought by looking at the likes array, and if we've liked a thought, then we add the like to the likes array for the user and we also add the like count
             state.thoughts[index] = action.payload;
             // this is how we increment the likes
-            if (state.thought.thoughtId === action.payload.thoughtId) {
-                state.thought = action.payload;
-            }
+            // if (state.thought.thoughtId === action.payload.thoughtId) {
+            //     state.thought = action.payload;
+            // }
             return {
-                ...state,
-            }
+                ...state
+            };
         case DELETE_THOUGHT:
             index = state.thoughts.findIndex((thought) => thought.thoughtId === action.payload);
             state.thoughts.splice(index, 1);
             return {
                 ...state
             };
+        case SHARE_THOUGHT:
+            return {
+                ...state,
+                // return state as it was
+                thoughts: [
+                    action.payload,
+                    ...state.thoughts
+                ]
+                // moving newest thought to the top of the array
+            }
         default:
             return state;
     };

@@ -1,4 +1,4 @@
-import { GATHER_THOUGHTS, LOADING_DATA, LIKE_THOUGHT, UNLIKE_THOUGHT, DELETE_THOUGHT } from '../types';
+import { GATHER_THOUGHTS, LOADING_DATA, LIKE_THOUGHT, UNLIKE_THOUGHT, DELETE_THOUGHT, CLEAR_ERRORS, SHARE_THOUGHT, LOADING_UI, SET_ERRORS } from '../types';
 import axios from 'axios';
 
 // collect all thoughts
@@ -16,6 +16,27 @@ export const collectThoughts = () => dispatch => {
                 type: GATHER_THOUGHTS,
                 payload: []
                 // returns an empty object if there's an error instead of the thought data
+            })
+        });
+};
+
+// share a thought
+export const shareThought = (newThought) => (dispatch) => {
+    dispatch({ type: LOADING_UI });
+    // this is for our loading spinner
+    axios.post('/thought', newThought)
+        // we make a post to /thought and pass in newThought as the data
+        .then(res => {
+            dispatch({
+                type: SHARE_THOUGHT,
+                payload: res.data
+            });
+            dispatch({ type: CLEAR_ERRORS });
+        })
+        .catch(err => {
+            dispatch({
+                type: SET_ERRORS,
+                payload: err.response.data
             })
         });
 };

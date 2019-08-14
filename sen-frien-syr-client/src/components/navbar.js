@@ -2,13 +2,13 @@ import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ToolButton from './ToolButton';
+import ShareThought from './ShareThought';
 // redux
 import { connect } from 'react-redux';
 // materialui
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 // icons
-import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
 import Notifications from '@material-ui/icons/Notifications';
 import ContactIcon from '@material-ui/icons/ContactSupport';
@@ -34,9 +34,7 @@ class Navbar extends Component {
                                     <HomeIcon />
                                 </ToolButton>
                             </Link>
-                            <ToolButton tip="share your thoughts">
-                                <AddIcon />
-                            </ToolButton>
+                            <ShareThought />
                             <ToolButton tip="notifications">
                                 <Notifications />
                             </ToolButton>

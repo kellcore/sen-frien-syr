@@ -14,11 +14,12 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
 
 
+
 const styles = {
     deleteButton: {
         position: 'absolute',
-        left: '40%',
-        bottom: '27%'
+        left: '75%',
+        bottom: '67%'
     }
 };
 
@@ -37,6 +38,10 @@ class DeleteThought extends Component {
         // this is a function that calls the action this.props.deleteThought
         this.setState({ open: false });
     };
+    // handleSubmit = (event) => {
+    //     event.preventDefault();
+    //     this.handleClose();
+    // };
     render() {
         const { classes } = this.props;
         return (
@@ -45,6 +50,7 @@ class DeleteThought extends Component {
                     <DeleteIcon color="secondary" />
                 </ToolButton>
                 <Dialog open={this.state.open} onClose={this.handleClose} fullWidth maxWidth="sm">
+                    {/* <form onSubmit={this.handleSubmit}> */}
                     <DialogTitle>
                         are you sure you want to delete this thought?
                     </DialogTitle>
@@ -52,6 +58,7 @@ class DeleteThought extends Component {
                         <Button onClick={this.deleteThought} color="primary"> delete </Button>
                         <Button onClick={this.handleClose} color="secondary"> cancel </Button>
                     </DialogActions>
+                    {/* <type="submit" /form> */}
                 </Dialog>
             </Fragment>
         )
