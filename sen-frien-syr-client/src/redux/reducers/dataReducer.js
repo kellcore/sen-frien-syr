@@ -36,9 +36,9 @@ export default function (state = initialState, action) {
             // we determine we've liked a thought by looking at the likes array, and if we've liked a thought, then we add the like to the likes array for the user and we also add the like count
             state.thoughts[index] = action.payload;
             // this is how we increment the likes
-            // if (state.thought.thoughtId === action.payload.thoughtId) {
-            //     state.thought = action.payload;
-            // }
+            if (state.thought.thoughtId === action.payload.thoughtId) {
+                state.thought = action.payload;
+            }
             return {
                 ...state
             };

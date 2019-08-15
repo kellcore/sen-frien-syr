@@ -68,7 +68,6 @@ export const likeThought = (thoughtId) => (dispatch) => {
 };
 
 // unlike a thought
-
 export const unlikeThought = (thoughtId) => (dispatch) => {
     axios.get(`/thought/${thoughtId}/unlike`)
         .then((res) => {
@@ -81,7 +80,6 @@ export const unlikeThought = (thoughtId) => (dispatch) => {
 };
 
 // delete a thought
-
 export const deleteThought = (thoughtId) => (dispatch) => {
     axios.delete(`/thought/${thoughtId}`)
         .then(() => {
