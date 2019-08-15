@@ -35,6 +35,15 @@ const styles = {
     closeButton: {
         position: 'absolute',
         left: '90%'
+    },
+    expandButton: {
+        position: 'absolute',
+        left: '90%'
+    },
+    circularProgress: {
+        textAlign: 'center',
+        marginTop: '50',
+        marginBottom: '50'
     }
 };
 
@@ -54,7 +63,9 @@ class ThoughtExpander extends Component {
         const { classes, thought: { thoughtId, body, createdAt, likeCount, commentCount, userHandle, userImage }, ui: { loading } } = this.props;
         // collectThought will get us the thought and set it in our props
         const dialogMarkup = loading ? (
-            <CircularProgress size={200} />
+            <div className={classes.circularProgress}>
+                <CircularProgress size={200} thickness={2} />
+            </div>
         ) : (
                 <Grid container spacing={10}>
                     <Grid item sm={5}>
