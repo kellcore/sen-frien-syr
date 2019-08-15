@@ -1,4 +1,4 @@
-import { GATHER_THOUGHTS, LIKE_THOUGHT, UNLIKE_THOUGHT, LOADING_DATA, DELETE_THOUGHT, SHARE_THOUGHT } from '../types';
+import { GATHER_THOUGHTS, GATHER_THOUGHT, LIKE_THOUGHT, UNLIKE_THOUGHT, LOADING_DATA, DELETE_THOUGHT, SHARE_THOUGHT } from '../types';
 
 const initialState = {
     thoughts: [],
@@ -20,6 +20,11 @@ export default function (state = initialState, action) {
                 ...state,
                 thoughts: action.payload,
                 loading: false
+            };
+        case GATHER_THOUGHT:
+            return {
+                ...state,
+                thought: action.payload
             };
         case LIKE_THOUGHT:
         case UNLIKE_THOUGHT:

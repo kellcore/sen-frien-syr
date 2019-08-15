@@ -2,7 +2,7 @@ import { GATHER_THOUGHTS, LOADING_DATA, LIKE_THOUGHT, UNLIKE_THOUGHT, DELETE_THO
 import axios from 'axios';
 
 // collect all thoughts
-export const collectThoughts = () => dispatch => {
+export const collectThoughts = () => (dispatch) => {
     dispatch({ type: LOADING_DATA });
     axios.get('/thoughts')
         .then(res => {
