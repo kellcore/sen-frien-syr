@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
 
-import NewThought from '../components/NewThought';
-import Profile from '../components/Profile';
+import NewThought from '../components/thought/NewThought';
+import Profile from '../components/profile/Profile';
 
 import { connect } from 'react-redux';
 import { collectThoughts } from '../redux/actions/dataActions';
