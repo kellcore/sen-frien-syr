@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
-import ToolButton from '../utilities/ToolButton';
+import ToolButton from '../components/ToolButton';
 // redux
 import { connect } from 'react-redux';
-import { shareThought, clearErrors } from '../../redux/actions/dataActions';
+import { shareThought, clearErrors } from '../redux/actions/dataActions';
 // materialui
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';

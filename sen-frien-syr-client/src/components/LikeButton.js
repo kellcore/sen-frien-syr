@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ToolButton from '../utilities/ToolButton';
+import ToolButton from '../components/ToolButton';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 // redux

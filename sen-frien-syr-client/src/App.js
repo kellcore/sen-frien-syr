@@ -23,8 +23,8 @@ import contact from './pages/contact';
 import credits from './pages/credits';
 
 // components
-import Navbar from './components/layout/Navbar';
-import AuthRoute from './components/utilities/AuthRoute';
+import Navbar from './components/Navbar';
+import AuthRoute from './components/AuthRoute';
 
 import axios from 'axios';
 

@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
-import ToolButton from '../utilities/ToolButton';
-import DeleteThought from './DeleteThought';
+import ToolButton from '../components/ToolButton';
+import DeleteThought from '../components/DeleteThought';
 // materialUI
 import withStyles from '@material-ui/core/styles/withStyles';
 import Card from '@material-ui/core/Card';
@@ -17,7 +17,7 @@ import EmptyHeartIcon from '@material-ui/icons/FavoriteBorder';
 import HeartIcon from '@material-ui/icons/Favorite';
 // redux
 import { connect } from 'react-redux';
-import { likeThought, unlikeThought } from '../../redux/actions/dataActions';
+import { likeThought, unlikeThought } from '../redux/actions/dataActions';
 
 const styles = {
     card: {
