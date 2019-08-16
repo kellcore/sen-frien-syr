@@ -4,7 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import ToolButton from '../utilities/ToolButton';
 import dayJS from 'dayjs';
 import { Link } from 'react-router-dom';
-import LikeButton from './LikeButton';
+import LikeButton from '../utilities/LikeButton';
 // redux
 import { connect } from 'react-redux';
 import { collectThought } from '../../redux/actions/dataActions';

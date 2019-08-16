@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import dayJS from 'dayjs';
-import EditUserProfile from '../components/EditUserProfile';
-import ToolButton from './ToolButton';
+import EditUserProfile from './EditUserProfile';
+import ToolButton from '../utilities/ToolButton';
 //redux
 import { connect } from 'react-redux';
 import { logoutUser, uploadImage } from '../redux/actions/userActions';

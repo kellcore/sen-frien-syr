@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
 import ToolButton from '../utilities/ToolButton';
-import DeleteThought from '../components/DeleteThought';
+import DeleteThought from './DeleteThought';
 // materialUI
 import withStyles from '@material-ui/core/styles/withStyles';
 import Card from '@material-ui/core/Card';

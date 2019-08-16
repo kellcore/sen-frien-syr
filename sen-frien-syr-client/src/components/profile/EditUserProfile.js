@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
-import ToolButton from './ToolButton';
+import ToolButton from '../utilities/ToolButton';
 // redux
 import { connect } from 'react-redux';
 import { editUserProfile } from '../redux/actions/userActions';

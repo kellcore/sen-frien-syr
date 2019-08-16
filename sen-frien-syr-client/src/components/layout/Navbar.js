@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import ToolButton from './ToolButton';
-import ShareThought from './ShareThought';
+import ToolButton from '../utilities/ToolButton';
+import ShareThought from '../thought/ShareThought';
 // redux
 import { connect } from 'react-redux';
 // materialui
