@@ -16,6 +16,7 @@ export const LIKE_THOUGHT = 'LIKE_THOUGHT';
 export const UNLIKE_THOUGHT = 'UNLIKE_THOUGHT';
 export const DELETE_THOUGHT = 'DELETE_THOUGHT';
 export const SHARE_THOUGHT = 'SHARE_THOUGHT';
+export const ENTER_COMMENT = 'ENTER_COMMENT';
 
 
 // we don't have to do this but it makes it easier to spot our mistakes since the app won't run if we use the wrong variables

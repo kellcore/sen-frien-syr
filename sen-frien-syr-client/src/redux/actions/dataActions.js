@@ -1,4 +1,4 @@
-import { GATHER_THOUGHTS, LOADING_DATA, LIKE_THOUGHT, UNLIKE_THOUGHT, DELETE_THOUGHT, CLEAR_ERRORS, SHARE_THOUGHT, LOADING_UI, SET_ERRORS, GATHER_THOUGHT, STOP_LOADING_UI } from '../types';
+import { GATHER_THOUGHTS, LOADING_DATA, LIKE_THOUGHT, UNLIKE_THOUGHT, DELETE_THOUGHT, CLEAR_ERRORS, SHARE_THOUGHT, LOADING_UI, SET_ERRORS, GATHER_THOUGHT, STOP_LOADING_UI, ENTER_COMMENT } from '../types';
 import axios from 'axios';
 
 // collect all thoughts
@@ -44,7 +44,7 @@ export const shareThought = (newThought) => (dispatch) => {
                 type: SHARE_THOUGHT,
                 payload: res.data
             });
-            dispatch({ type: CLEAR_ERRORS });
+            dispatch(clearErrors());
         })
         .catch(err => {
             dispatch({
@@ -91,6 +91,26 @@ export const deleteThought = (thoughtId) => (dispatch) => {
         .catch(err => console.log(err));
 };
 
+// enter a comment
+export const enterComment = (thoughtId, commentData) => (dispatch) => {
+    axios.post(`/thought/${thoughtId}/comment`, commentData)
+        .then(res => {
+            dispatch({
+                type: ENTER_COMMENT,
+                payload: res.data
+            });
+            dispatch(clearErrors());
+        })
+        .catch(err => {
+            dispatch({
+                type: SET_ERRORS,
+                payload: err.response.data
+            })
+        })
+};
+
 export const clearErrors = () => (dispatch) => {
     dispatch({ type: CLEAR_ERRORS });
 };
+
+// this is called an action creator -> when you write a function that just handles an action

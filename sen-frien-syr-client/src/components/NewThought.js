@@ -5,6 +5,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
 import ToolButton from '../components/ToolButton';
 import DeleteThought from '../components/DeleteThought';
+import ThoughtExpander from '../components/ThoughtExpander';
 // materialUI
 import withStyles from '@material-ui/core/styles/withStyles';
 import Card from '@material-ui/core/Card';
@@ -106,6 +107,7 @@ class NewThought extends Component {
                         <ChatIcon color="primary" />
                     </ToolButton>
                     <span> {commentCount} comments </span>
+                    <ThoughtExpander thoughtId={thoughtId} userHandle={userHandle} openDialog={this.props.openDialog} />
                 </CardContent>
             </Card>
         );

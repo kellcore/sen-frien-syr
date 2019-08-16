@@ -2,12 +2,14 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import ToolButton from '../components/ToolButton';
+import Comments from '../components/Comments';
 import dayJS from 'dayjs';
 import { Link } from 'react-router-dom';
 import LikeButton from '../components/LikeButton';
+import CommentForm from '../components/CommentForm';
 // redux
 import { connect } from 'react-redux';
-import { collectThought } from '../redux/actions/dataActions';
+import { collectThought, clearErrors } from '../redux/actions/dataActions';
 // materialui
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -46,8 +48,15 @@ const styles = {
         textAlign: 'center',
         marginTop: '50',
         marginBottom: '50'
+    },
+    visible: {
+        width: '100%',
+        borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
+        marginBotton: '20'
     }
 };
+// have to pass the values in as strings since this is javascript
+// rgba(0,0,0,0.1) -> 0.0.0 means it's black and 0.1 gives it an opacity of 10%
 
 class ThoughtExpander extends Component {
     state = {
@@ -59,10 +68,11 @@ class ThoughtExpander extends Component {
     };
     handleClose = () => {
         this.setState({ open: false });
+        this.props.clearErrors();
     };
 
     render() {
-        const { classes, thought: { thoughtId, body, createdAt, likeCount, commentCount, userHandle, userImage }, ui: { loading } } = this.props;
+        const { classes, thought: { thoughtId, body, createdAt, likeCount, commentCount, userHandle, userImage, comments }, ui: { loading } } = this.props;
         // collectThought will get us the thought and set it in our props
         const dialogMarkup = loading ? (
             <div className={classes.circularProgress}>
@@ -92,6 +102,10 @@ class ThoughtExpander extends Component {
                         </ToolButton>
                         <span> {commentCount} comments </span>
                     </Grid>
+                    <hr className={classes.visible} />
+                    <CommentForm thoughtId={thoughtId} />
+                    <Comments comments={comments} />
+                    {/* we're passing our component Comments a prop named comments that contains the value of comments -> that value comes from our deconstructed thought object above */}
                 </Grid>
             );
         // if loading, display giant circular progress, otherwise 
@@ -121,7 +135,8 @@ ThoughtExpander.propTypes = {
     thoughtId: PropTypes.string.isRequired,
     userHandle: PropTypes.string.isRequired,
     thought: PropTypes.object.isRequired,
-    ui: PropTypes.object.isRequired
+    ui: PropTypes.object.isRequired,
+    clearErrors: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -130,7 +145,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionsToProps = {
-    collectThought
+    collectThought,
+    clearErrors
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(ThoughtExpander));

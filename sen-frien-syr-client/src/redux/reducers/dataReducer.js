@@ -1,4 +1,4 @@
-import { GATHER_THOUGHTS, GATHER_THOUGHT, LIKE_THOUGHT, UNLIKE_THOUGHT, LOADING_DATA, DELETE_THOUGHT, SHARE_THOUGHT } from '../types';
+import { GATHER_THOUGHTS, GATHER_THOUGHT, LIKE_THOUGHT, UNLIKE_THOUGHT, LOADING_DATA, DELETE_THOUGHT, SHARE_THOUGHT, ENTER_COMMENT } from '../types';
 
 const initialState = {
     thoughts: [],
@@ -58,6 +58,14 @@ export default function (state = initialState, action) {
                     ...state.thoughts
                 ]
                 // moving newest thought to the top of the array
+            };
+        case ENTER_COMMENT:
+            return {
+                ...state,
+                thought: {
+                    ...state.thought,
+                    comments: [action.payload, ...state.thought.comments]
+                }
             }
         default:
             return state;
