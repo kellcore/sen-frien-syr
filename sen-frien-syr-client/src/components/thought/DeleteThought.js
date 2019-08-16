@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import ToolButton from '../components/ToolButton';
+import ToolButton from '../utilities/ToolButton';
 // redux
 import { connect } from 'react-redux';
-import { deleteThought } from '../redux/actions/dataActions';
+import { deleteThought } from '../../redux/actions/dataActions';
 // materialUI
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';

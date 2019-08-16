@@ -3,10 +3,8 @@ import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
-import ToolButton from '../components/ToolButton';
+import ToolButton from '../utilities/ToolButton';
 import DeleteThought from '../components/DeleteThought';
-import ThoughtExpander from '../components/ThoughtExpander';
-import LikeButton from '../components/LikeButton';
 // materialUI
 import withStyles from '@material-ui/core/styles/withStyles';
 import Card from '@material-ui/core/Card';
@@ -15,9 +13,11 @@ import CardMedia from '@material-ui/core/CardMedia';
 import { Typography } from '@material-ui/core';
 // icons
 import ChatIcon from '@material-ui/icons/Chat';
+import EmptyHeartIcon from '@material-ui/icons/FavoriteBorder';
+import HeartIcon from '@material-ui/icons/Favorite';
 // redux
 import { connect } from 'react-redux';
-
+import { likeThought, unlikeThought } from '../../redux/actions/dataActions';
 
 const styles = {
     card: {
@@ -40,6 +40,19 @@ const styles = {
 };
 
 class NewThought extends Component {
+    likedThought = () => {
+        if (this.props.user.likes && this.props.user.likes.find((like) => like.thoughtId === this.props.thought.thoughtId))
+            return true;
+        else return false;
+        // we need to check if there's any likes in our user object, otherwise it's false -> there's no likes if there's no like array
+    };
+    likeThought = () => {
+        this.props.likeThought(this.props.thought.thoughtId);
+    };
+    // technically, a function belonging to a class is called a method because it operates on that class alone
+    unlikeThought = () => {
+        this.props.unlikeThought(this.props.thought.thoughtId);
+    };
     render() {
         dayjs.extend(relativeTime);
         const {
@@ -52,7 +65,24 @@ class NewThought extends Component {
         // ^ same as const classes = this.props.classes
         // thought here is being referenced on the home page -> also has properties
         // destructuring!!!
+        const likeButton = !authenticatedUser ? (
+            <Link to="/login">
+                <ToolButton tip="like" onClick={this.likeThought}>
+                    <EmptyHeartIcon color="primary" />
+                </ToolButton>
+            </Link>
+        ) : this.likedThought() ? (
+            <ToolButton tip="unlike" onClick={this.unlikeThought}>
+                <HeartIcon color="primary" />
+            </ToolButton>
+        ) : (
+                    <ToolButton tip="like" >
+                        <EmptyHeartIcon color="primary" />
+                    </ToolButton>
+                );
+        // console.log(likeButton);
 
+        // if not authenticated, we show the empty heart icon and redirect to the login page, otherwise we are authenticated and we check if there are any likes -> if the thought has a like in our array, we show the full heart & if we haven't liked it, we show the button with the like tip
         const deleteButton = authenticatedUser && userHandle === selectHandle ? (
             <DeleteThought thoughtId={thoughtId} />
         ) : null;
@@ -70,15 +100,12 @@ class NewThought extends Component {
                     {deleteButton}
                     <Typography variant="body2" color="textSecondary">{dayjs(createdAt).fromNow()}</Typography>
                     <Typography variant="body1">{body}</Typography>
-                    <LikeButton thoughtId={thoughtId} />
-                    {/* we've destructured thoughtId from the thought object in this.props */}
+                    {likeButton}
                     <span> {likeCount} likes </span>
                     <ToolButton tip="comment">
                         <ChatIcon color="primary" />
                     </ToolButton>
                     <span> {commentCount} comments </span>
-                    <ThoughtExpander thoughtId={thoughtId} userHandle={userHandle} />
-                    {/* we're passing it the thoughtId so it uses that to fetch the individual thought */}
                 </CardContent>
             </Card>
         );
@@ -86,6 +113,8 @@ class NewThought extends Component {
 };
 
 NewThought.propTypes = {
+    likeThought: PropTypes.func.isRequired,
+    unlikeThought: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
     thought: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired
@@ -95,4 +124,9 @@ const mapStateToProps = state => ({
     user: state.user
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(NewThought));
+const mapActionsToProps = {
+    likeThought,
+    unlikeThought
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(NewThought));

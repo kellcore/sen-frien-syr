@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
-import ToolButton from './ToolButton';
+import ToolButton from '../utilities/ToolButton';
 import dayJS from 'dayjs';
 import { Link } from 'react-router-dom';
 import LikeButton from './LikeButton';
 // redux
 import { connect } from 'react-redux';
-import { collectThought } from '../redux/actions/dataActions';
+import { collectThought } from '../../redux/actions/dataActions';
 // materialui
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
