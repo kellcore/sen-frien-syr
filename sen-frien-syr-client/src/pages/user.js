@@ -11,11 +11,17 @@ import { collectOneUsersThoughts } from '../redux/actions/dataActions';
 
 class user extends Component {
     state = {
-        profile: null
+        profile: null,
+        thoughtIdParam: null
     };
     componentDidMount() {
         const handle = this.props.match.params.selectHandle;
         // this comes from the route in App.js -> users/:selectHandle
+
+        const thoughtId = this.props.match.params.thoughtId;
+        if (thoughtId) this.setState({ thoughtIdParam: thoughtId });
+        // if we have the thoughtId, we set it in the state
+
         this.props.collectOneUsersThoughts(handle);
         axios.get(`/user/${handle}`)
             // sending another request to axios to get the user's details
@@ -30,13 +36,21 @@ class user extends Component {
     };
     render() {
         const { thoughts, loading } = this.props.data;
+        const { thoughtIdParam } = this.state;
+
         const thoughtsMarkup = loading ? (
             <p> loading... </p>
         ) : thoughts === null ? (
             <p> no thoughts shared from this user </p>
+        ) : !thoughtIdParam ? (
+            thoughts.map(thought => <Thought key={thought.thoughtId} thought={thought} />)
         ) : (
-                    thoughts.map(thought => <Thought key={thought.thoughtId} thought={thought} />)
-                );
+                        thoughts.map(thought => {
+                            if (thought.thoughtId !== thoughtIdParam)
+                                return <Thought key={thought.thoughtId} thought={thought} />
+                            else return <Thought key={thought.thoughtId} thought={thought} openDialog />
+                        })
+                    );
         // doing a check here to see if there are any thoughts since there could be a user with none
         return (
             <Grid container spacing={8}>

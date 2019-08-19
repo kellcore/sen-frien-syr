@@ -119,7 +119,8 @@ NewThought.propTypes = {
     unlikeThought: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
     thought: PropTypes.object.isRequired,
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    openDialog: PropTypes.bool
 };
 
 const mapStateToProps = state => ({

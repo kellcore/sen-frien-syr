@@ -85,6 +85,7 @@ function App() {
               <Route exact path="/contact" component={contact} />
               <Route exact path="/credits" component={credits} />
               <Route exact path="/users/:selectHandle" component={user} />
+              <Route exact path="/users/:selectHandle/thought/:thoughtId" component={user} />
             </Switch>
           </div>
         </Router>

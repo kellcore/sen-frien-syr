@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ToolButton from '../components/ToolButton';
 import ShareThought from '../components/ShareThought';
+import Notifications from '../components/Notifications';
 // redux
 import { connect } from 'react-redux';
 // materialui
@@ -10,7 +11,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 // icons
 import HomeIcon from '@material-ui/icons/Home';
-import Notifications from '@material-ui/icons/Notifications';
 import ContactIcon from '@material-ui/icons/ContactSupport';
 import AccountIcon from '@material-ui/icons/AccountCircle';
 import SignupIcon from '@material-ui/icons/HowToReg';
@@ -35,9 +35,7 @@ class Navbar extends Component {
                                 </ToolButton>
                             </Link>
                             <ShareThought />
-                            <ToolButton tip="notifications">
-                                <Notifications />
-                            </ToolButton>
+                            <Notifications />
                             <Link to="/about">
                                 <ToolButton tip="about">
                                     <AboutIcon />

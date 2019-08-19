@@ -1,4 +1,4 @@
-import { SET_USER, SET_AUTHENTICATED, SET_UNAUTHENTICATED, LOADING_USER, LIKE_THOUGHT, UNLIKE_THOUGHT } from '../types';
+import { SET_USER, SET_AUTHENTICATED, SET_UNAUTHENTICATED, LOADING_USER, LIKE_THOUGHT, UNLIKE_THOUGHT, MARK_NOTIFICATIONS_AS_READ } from '../types';
 
 const initialState = {
     authenticatedUser: false,
@@ -40,15 +40,18 @@ export default function (state = initialState, action) {
                         userHandle: state.credentials.selectHandle,
                         thoughtId: action.payload.thoughtId
                     }
-                ],
-                ...state
+                ]
             };
         // this is where we actually add the like to the array!
         case UNLIKE_THOUGHT:
             return {
                 ...state,
-                likes: state.likes.filter((like) => like.thoughtId !== action.payload.thoughtId),
+                likes: state.likes.filter((like) => like.thoughtId !== action.payload.thoughtId)
                 // we're using filter to remove a like
+            };
+        case MARK_NOTIFICATIONS_AS_READ:
+            state.notifications.forEach(not => not.read = true);
+            return {
                 ...state
             };
         default:
