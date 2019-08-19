@@ -21,6 +21,7 @@ import signup from './pages/signup';
 import about from './pages/about';
 import contact from './pages/contact';
 import credits from './pages/credits';
+import user from './pages/user';
 
 // components
 import Navbar from './components/Navbar';
@@ -83,6 +84,7 @@ function App() {
               <Route exact path="/about" component={about} />
               <Route exact path="/contact" component={contact} />
               <Route exact path="/credits" component={credits} />
+              <Route exact path="/users/:selectHandle" component={user} />
             </Switch>
           </div>
         </Router>

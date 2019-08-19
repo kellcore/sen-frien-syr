@@ -109,6 +109,23 @@ export const enterComment = (thoughtId, commentData) => (dispatch) => {
         })
 };
 
+export const collectOneUsersThoughts = (userHandle) => dispatch => {
+    dispatch({ type: LOADING_DATA });
+    axios.get(`/user/${userHandle}`)
+        .then(res => {
+            dispatch({
+                type: GATHER_THOUGHTS,
+                payload: res.data.thoughts
+            });
+        })
+        .catch((err) => {
+            dispatch({
+                type: GATHER_THOUGHTS,
+                payload: null
+            });
+        });
+};
+
 export const clearErrors = () => (dispatch) => {
     dispatch({ type: CLEAR_ERRORS });
 };
