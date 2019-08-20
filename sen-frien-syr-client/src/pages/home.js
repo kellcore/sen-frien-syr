@@ -4,6 +4,8 @@ import { Grid } from '@material-ui/core';
 
 import NewThought from '../components/NewThought';
 import Profile from '../components/Profile';
+import ThoughtSkeleton from '../components/ThoughtSkeleton';
+
 
 import { connect } from 'react-redux';
 import { collectThoughts } from '../redux/actions/dataActions';
@@ -18,7 +20,7 @@ class home extends Component {
             thoughts.map((thought) =>
                 <NewThought thought={thought} key={thought.thoughtId} />)
             // creating a component designed specifically to display thoughts -> component name Thought passing in property thought which contains the thought itself
-        ) : (<p> Fetching thoughts... </p>);
+        ) : (<ThoughtSkeleton />);
         // if thoughts exists (not null), then we have the data and we'll show it on the screen, otherwise 
         return (
             <Grid container spacing={8}>

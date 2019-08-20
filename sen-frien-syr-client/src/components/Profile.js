@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import dayJS from 'dayjs';
 import EditUserProfile from '../components/EditUserProfile';
 import ToolButton from '../components/ToolButton';
+import ProfileSkeleton from '../components/ProfileSkeleton';
 //redux
 import { connect } from 'react-redux';
 import { logoutUser, uploadImage } from '../redux/actions/userActions';
@@ -159,7 +160,7 @@ class Profile extends Component {
                         </span>
                     </div>
                 </Paper >
-            )) : (<p> profile loading... </p>)
+            )) : (<ProfileSkeleton />)
         // two ternary operators: if not loading, check if we're authenticated, otherwise show profile loading text -> if we're authenticated, display profile markup, otherwise, display no profile found with login/signup links
 
         return profileMarkup;

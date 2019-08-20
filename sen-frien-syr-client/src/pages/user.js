@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import Thought from '../components/NewThought';
 import StaticProfile from '../components/StaticProfile';
+import ThoughtSkeleton from '../components/ThoughtSkeleton';
+import ProfileSkeleton from '../components/ProfileSkeleton';
 // materialUI
 import Grid from '@material-ui/core/Grid';
 //redux
@@ -39,7 +41,7 @@ class user extends Component {
         const { thoughtIdParam } = this.state;
 
         const thoughtsMarkup = loading ? (
-            <p> loading... </p>
+            <ThoughtSkeleton />
         ) : thoughts === null ? (
             <p> no thoughts shared from this user </p>
         ) : !thoughtIdParam ? (
@@ -56,7 +58,7 @@ class user extends Component {
             <Grid container spacing={8}>
                 <Grid item xs={12} sm={12}>
                     {this.state.profile === null ? (
-                        <p> loading profile... </p>
+                        <ProfileSkeleton />
                     ) : (<StaticProfile profile={this.state.profile} />)}
                     {/* we have to check to see if the state of the profile is null, in which case we display loading text, otherwise the state is not null and we show the static profile */}
                 </Grid>
