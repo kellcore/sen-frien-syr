@@ -46,7 +46,7 @@ const theme = createMuiTheme({
   }
 });
 
-// axios.defaults.baseURL = 'https://us-central1-sensoryfriendlysyracuse.cloudfunctions.net/api';
+axios.defaults.baseURL = 'https://us-central1-sensoryfriendlysyracuse.cloudfunctions.net/api';
 
 
 const token = localStorage.fBAuthToken;
