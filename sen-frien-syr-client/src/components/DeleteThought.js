@@ -63,7 +63,7 @@ class DeleteThought extends Component {
             </Fragment>
         )
     }
-}
+};
 
 DeleteThought.propTypes = {
     deleteThought: PropTypes.func.isRequired,

@@ -177,7 +177,6 @@ exports.api = functions.https.onRequest(app);
     // we have to tell firebase that express will be handling/containing our routes
     // pass in whole app which will automatically turn into multiple routes instead of just one  
 
-// this app built using the react/express/firebase tutorial from classsed @ https://www.youtube.com/watch?v=m_u6P5k0vP0
 
 // we wrote cloud functions to access firebase instead of directly using the client -> app doubled in size from one we're building -> firebase alone would be almost the entire size of this app -> using firebase client instead of writing cloud functions can increase the size of the bundle exponentially -> you'd get charged more deploying it with a service like aws which charges by bandwidth & slower mobile devices would have a hard time unpacking this massive javascript bundle -> app using firebase client would also be close to 900kb without material ui or design elements
 
