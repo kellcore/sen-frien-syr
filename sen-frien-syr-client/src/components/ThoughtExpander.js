@@ -5,7 +5,7 @@ import ToolButton from '../components/ToolButton';
 import Comments from '../components/Comments';
 import dayJS from 'dayjs';
 import { Link } from 'react-router-dom';
-import LikeButton from '../components/LikeButton';
+// import LikeButton from '../components/LikeButton';
 import CommentForm from '../components/CommentForm';
 // redux
 import { connect } from 'react-redux';
@@ -90,8 +90,9 @@ class ThoughtExpander extends Component {
     };
 
     render() {
-        const { classes, thought: { thoughtId, body, createdAt, likeCount, commentCount, userHandle, userImage, comments }, ui: { loading } } = this.props;
+        const { classes, thought: { thoughtId, body, createdAt, commentCount, userHandle, userImage, comments }, ui: { loading } } = this.props;
         // collectThought will get us the thought and set it in our props
+        // likeCount,
         const dialogMarkup = loading ? (
             <div className={classes.circularProgress}>
                 <CircularProgress size={200} thickness={2} />
@@ -113,8 +114,8 @@ class ThoughtExpander extends Component {
                         <Typography variant="body1">
                             {body}
                         </Typography>
-                        <LikeButton thoughtId={thoughtId} />
-                        <span> {likeCount} likes </span>
+                        {/* <LikeButton thoughtId={thoughtId} />
+                        <span> {likeCount} likes </span> */}
                         <ToolButton tip="comment">
                             <ChatIcon color="primary" />
                         </ToolButton>

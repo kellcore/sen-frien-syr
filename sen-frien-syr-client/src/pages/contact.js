@@ -52,13 +52,18 @@ const contact = (props) => {
                         contact
                     </Typography>
                     <hr />
-                    <Typography variant="body1" color="textPrimary">
+                    <Typography variant="body2" color="textPrimary">
                         please send all comments, questions, and concerns to:
                     </Typography>
                     <hr />
-                    <Typography variant="h5" color="primary">
-                        contact@sensoryfriendlysyracuse.com
+                    <Typography variant="body1" color="primary">
+                        <a href="mailto:contact@sensoryfriendlysyracuse.com">
+                            contact@sensoryfriendlysyracuse.com
+                        </a>
                     </Typography>
+
+
+
                     <hr />
                 </div>
             </div>

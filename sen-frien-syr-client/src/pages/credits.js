@@ -69,51 +69,47 @@ const credits = (props) => {
                     <Typography variant="body1" color="textPrimary">
                         find more of her work @
                     </Typography>
-                    <MuiLink color="primary" variant="h5" >
-                        <a href='https://kell.dev/' target="_blank" rel="noopener noreferrer">
-                            kell.dev
-                            </a>
+                    <MuiLink color="primary" variant="h5" href='https://kell.dev/' target="_blank" rel="noopener noreferrer">
+                        kell.dev    
                     </MuiLink>
                     <Typography variant="body1" color="textPrimary">
                         and follow her on twitter
                     </Typography>
-                    <MuiLink color="primary" variant="h5" >
-                        <a href='https://twitter.com/kelldeveloped' target="_blank" rel="noopener noreferrer">
-                            @kelldeveloped
-                            </a>
+                    <MuiLink color="primary" variant="h5"  href='https://twitter.com/kelldeveloped' target="_blank" rel="noopener noreferrer">
+                            @kelldeveloped   
                     </MuiLink>
                     <hr className={classes.visible} />
                     <Typography variant="body1" color="textPrimary">
                         redux devtools extension by zalmoxisus:
                     </Typography>
-                    <MuiLink color="primary" variant="h5" >
-                        <a href='https://github.com/zalmoxisus/redux-devtools-extension' target="_blank" rel="noopener noreferrer">
+                    <MuiLink color="primary" variant="h5" href='https://github.com/zalmoxisus/redux-devtools-extension' target="_blank" rel="noopener noreferrer">
+                        
                             https://github.com/zalmoxisus/redux-devtools-extension
-                            </a>
+                            
                     </MuiLink>
                     <hr className={classes.visible} />
                     <Typography variant="body1" color="textPrimary">
                         Icons made by
                         </Typography>
-                    <MuiLink color="primary" variant="h5" >
-                        <a href="https://www.flaticon.com/authors/geotatah" title="geotatah">geotatah</a> </MuiLink>
+                    <MuiLink color="primary" variant="h5" href="https://www.flaticon.com/authors/geotatah" title="geotatah" >
+                        geotatah
+                         </MuiLink>
                     <Typography variant="body1" color="textPrimary">
                         from
                         </Typography>
-                    <MuiLink color="primary" variant="h5" >
-                        <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> </MuiLink>
+                    <MuiLink color="primary" variant="h5" href="https://www.flaticon.com/" title="Flaticon">
+                        www.flaticon.com 
+                        </MuiLink>
                     <Typography variant="body1" color="textPrimary">
                         is licensed by </Typography>
-                    <MuiLink color="primary" variant="h5" >
-                        <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank" rel="noopener noreferrer">CC 3.0 BY</a>
+                    <MuiLink color="primary" variant="h5" href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank" rel="noopener noreferrer">
+                        CC 3.0 BY
                     </MuiLink>
                     <hr className={classes.visible} />
                     <Typography variant="body1" color="textPrimary">
                         this app built using the react/express/firebase tutorial from </Typography>
-                    <MuiLink color="primary" variant="h5" >
-                        <a href='https://www.youtube.com/watch?v=m_u6P5k0vP0' target="_blank" rel="noopener noreferrer">
+                    <MuiLink color="primary" variant="h5" href='https://www.youtube.com/watch?v=m_u6P5k0vP0' target="_blank" rel="noopener noreferrer">
                             @classsed
-                            </a>
                     </MuiLink>
                     <hr className={classes.visible} />
                     <Typography variant="body1" color="textPrimary">

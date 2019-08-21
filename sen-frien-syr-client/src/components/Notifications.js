@@ -59,7 +59,7 @@ class Notifications extends Component {
             notifications && notifications.length > 0 ? (
                 notifications.map(not => {
                     const notType = not.type === 'like' ? 'liked' : 'commented on';
-                    const notTime = dayjs(not.createdAt).fromNow();
+                    // const notTime = dayjs(not.createdAt).fromNow();
                     const iconColor = not.read ? 'primary' : 'secondary';
                     const icon = not.type === 'like' ? (
                         <HeartIcon color={iconColor} style={{ marginRight: 10 }} />
@@ -72,8 +72,8 @@ class Notifications extends Component {
                             {icon}
                             <Typography component={Link} color="textSecondary" variant="body1"
                                 to={`/users/${not.recipient}/thought/${not.thoughtId}`}>
-                                {not.sender} {notType} your thought {notTime}
-
+                                {not.sender} {notType} your thought
+                                {/* {notTime} */}
                             </Typography>
                         </MenuItem>
                     )

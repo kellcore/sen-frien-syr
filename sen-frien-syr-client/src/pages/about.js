@@ -53,12 +53,26 @@ const about = (props) => {
                     </Typography>
                     <hr />
                     <Typography variant="body1" color="textPrimary">
-                        sensory friendly syracuse is a social media app designed to serve the needs of people in the Syracuse community who would like information about noise levels, lights, and other environmental criteria before venturing out.
-                    </Typography>
+                        sensory friendly syracuse is a social media app
+                        </Typography>
+                    <Typography variant="body1" color="textPrimary">
+                        designed to serve the needs of people in the Syracuse community
+                        </Typography>
+                    <Typography variant="body1" color="textPrimary">
+                        who would like information about noise levels, lights, and other environmental criteria before venturing out.
+                         </Typography>
+
                     <hr />
                     <Typography variant="body1" color="textPrimary">
-                        information about local venues/events is often provided by people who are neurotypical and therefore not as familiar with sensory issues. sfs is a place for the sensory friendly by the sensory friendly.
-                    </Typography>
+                        information about local venues/events is often provided by people who are neurotypical
+                        </Typography>
+                    <Typography variant="body1" color="textPrimary">
+                        and therefore not as familiar with sensory issues.
+                        </Typography>
+                    <Typography variant="body1" color="primary">
+                        sfs is a place for the sensory friendly by the sensory friendly.
+                        </Typography>
+
                 </div>
             </div>
         </Paper>
